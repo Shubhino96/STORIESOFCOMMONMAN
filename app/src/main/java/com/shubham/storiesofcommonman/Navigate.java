@@ -1,5 +1,6 @@
 package com.shubham.storiesofcommonman;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,9 +11,12 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.plus.People;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.shubham.storiesofcommonman.MainActivity;
 
 import android.net.Uri;
@@ -21,6 +25,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -48,6 +54,13 @@ public class Navigate extends AppCompatActivity
 
     private GoogleApiClient mGoogleApiClient;
 
+    private  NavigationView navigationView;
+    private  TextView nav_user;
+    private  TextView nav_email;
+    private  View hView;
+    private RecyclerView mBlogList;
+    private DatabaseReference mDatabase;
+
     ImageView user_picture;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,13 +70,15 @@ public class Navigate extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
+        mBlogList = (RecyclerView)findViewById(R.id.blog);
+        mBlogList.setHasFixedSize(true);
+        mBlogList.setLayoutManager(new LinearLayoutManager(this));
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN).build();
-
 
 
         Intent intent = getIntent();
@@ -77,13 +92,13 @@ public class Navigate extends AppCompatActivity
             try
             {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-                View hView =  navigationView.getHeaderView(0);
+                navigationView = (NavigationView) findViewById(R.id.nav_view);
+                hView =  navigationView.getHeaderView(0);
 
-                TextView nav_user = (TextView)hView.findViewById(R.id.nav_name);
+                nav_user = (TextView)hView.findViewById(R.id.nav_name);
                 nav_user.setText(jsonObject.getString("name"));
 
-                TextView nav_email = (TextView)hView.findViewById(R.id.textView);
+                nav_email = (TextView)hView.findViewById(R.id.textView);
                 nav_email.setText(jsonObject.getString("email"));
 
                 user_picture = (ImageView) hView.findViewById(R.id.imageView);
@@ -105,13 +120,13 @@ public class Navigate extends AppCompatActivity
 
             Uri pic = extras.getParcelable("pic");
 
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            View hView =  navigationView.getHeaderView(0);
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            hView =  navigationView.getHeaderView(0);
 
-            TextView nav_user = (TextView)hView.findViewById(R.id.nav_name);
+            nav_user = (TextView)hView.findViewById(R.id.nav_name);
             nav_user.setText(name);
 
-            TextView nav_email = (TextView)hView.findViewById(R.id.textView);
+            nav_email = (TextView)hView.findViewById(R.id.textView);
             nav_email.setText(email);
 
             user_picture = (ImageView) hView.findViewById(R.id.imageView);
@@ -219,6 +234,8 @@ public class Navigate extends AppCompatActivity
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigate, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
         return true;
     }
 
@@ -228,10 +245,25 @@ public class Navigate extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+
+
+        if(item.getItemId() == R.id.action_add)
+        {
+            Intent i = new Intent(Navigate.this,PostActivity.class);
+            Bundle extras = new Bundle();
+            extras.putString("name", String.valueOf(nav_user));
+            i.putExtras(extras);
+            startActivity(i);
+        }
+
+
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
@@ -245,9 +277,16 @@ public class Navigate extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery)
+        if (id == R.id.nav_upload)
+        {
+            Intent i = new Intent(Navigate.this,PostActivity.class);
+            Bundle extras = new Bundle();
+            extras.putString("name", String.valueOf(nav_user));
+            i.putExtras(extras);
+            startActivity(i);
+        }
+        else
+        if (id == R.id.nav_exit)
         {
 
             LoginManager.getInstance().logOut();
@@ -279,8 +318,59 @@ public class Navigate extends AppCompatActivity
         super.onStart();
         mGoogleApiClient.connect();
 
+        FirebaseRecyclerAdapter<Blog, BlogViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Blog, BlogViewHolder>(
+
+                Blog.class,
+                R.layout.blog_row,
+                BlogViewHolder.class,
+                mDatabase
+
+        ) {
+            @Override
+            protected void populateViewHolder(BlogViewHolder viewHolder, Blog model, int position) {
+
+                viewHolder.setTilte(model.getTitle());
+                viewHolder.setDesc(model.getDesc());
+                viewHolder.setImage(getApplicationContext(),model.getImage());
+
+            }
+        };
+
+        mBlogList.setAdapter(firebaseRecyclerAdapter);
+
     }
 
+    public  static  class BlogViewHolder extends RecyclerView.ViewHolder
+    {
+
+        View mView;
+
+        public BlogViewHolder(View itemView)
+        {
+            super(itemView);
+            mView = itemView;
+        }
+
+        public  void setTilte(String title)
+        {
+            TextView post_title = (TextView)mView.findViewById(R.id.post_title);
+            post_title.setText(title);
+        }
+
+        public void setDesc(String desc)
+        {
+            TextView post_desc = (TextView)mView.findViewById(R.id.post_desc);
+            post_desc.setText(desc);
+        }
+
+        public void setImage(Context ctx, String image)
+        {
+           ImageView post_image = (ImageView)mView.findViewById(R.id.post_image);
+           Picasso.with(ctx).load(image).into(post_image);
+        }
+
+
+    }
     @Override
     public void onConnected(@Nullable Bundle bundle)
     {

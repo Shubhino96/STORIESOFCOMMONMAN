@@ -31,16 +31,14 @@
             android:name=".Navigate"
             android:label="@string/title_activity_navigate"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
-
+        <activity android:name=".PostActivity"></activity>
     </application>
 
 </manifest>

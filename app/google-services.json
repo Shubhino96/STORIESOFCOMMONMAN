@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "472370178316",
-    "firebase_url": "https://storiesofcommonman.firebaseio.com",
-    "project_id": "storiesofcommonman",
-    "storage_bucket": "storiesofcommonman.appspot.com"
+    "project_number": "316524492091",
+    "firebase_url": "https://storiesofcommonman-8a613.firebaseio.com",
+    "project_id": "storiesofcommonman-8a613",
+    "storage_bucket": "storiesofcommonman-8a613.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:472370178316:android:3f3e77fc2bb0c7c5",
+        "mobilesdk_app_id": "1:316524492091:android:3f3e77fc2bb0c7c5",
         "android_client_info": {
           "package_name": "com.shubham.storiesofcommonman"
         }
       },
       "oauth_client": [
         {
-          "client_id": "472370178316-k1s6iskq1isrljs9k42njs757thfau4e.apps.googleusercontent.com",
+          "client_id": "316524492091-7mijs8uan8ub5aoia5prf59dlbbgn2i9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.shubham.storiesofcommonman",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "472370178316-f7npm7ncsr36d9ebukjio9lcmr0t9pes.apps.googleusercontent.com",
+          "client_id": "316524492091-0phtsfeag13aj5o7jmvrhaiqdm68rd62.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCNFrMkYYEH-nzWkyDxrhWrOGmoCOum1_4"
+          "current_key": "AIzaSyAALVkY1C-EK0_CTfIp7vC6NS860oZKBgo"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "472370178316-f7npm7ncsr36d9ebukjio9lcmr0t9pes.apps.googleusercontent.com",
+              "client_id": "316524492091-0phtsfeag13aj5o7jmvrhaiqdm68rd62.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
