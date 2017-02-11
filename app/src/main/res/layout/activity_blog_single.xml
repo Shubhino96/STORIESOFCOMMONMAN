@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_blog_single"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shubham.storiesofcommonman.BlogSingleActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="191dp"
+        app:srcCompat="@drawable/add_btn"
+        android:id="@+id/BlogImage"
+        android:scaleType="fitXY"
+        android:layout_marginTop="23dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Title goes here.."
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/title"
+        android:padding="10dp"
+        android:paddingStart="25dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Desc goes here.."
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/desc"
+        android:padding="10dp"
+        android:paddingStart="25dp"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Remove Post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/remove"
+        android:visibility="invisible" />
+</RelativeLayout>
