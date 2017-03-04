@@ -1,5 +1,6 @@
 package com.shubham.storiesofcommonman;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -61,6 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setIcon(R.drawable.icon);
+
+/*
+        actionBar.setDisplayShowHomeEnabled(false);
+*/
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        /*View mActionBarView = getLayoutInflater().inflate(R.layout.my_action_bar, null);
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);*/
+
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

@@ -1,10 +1,12 @@
 package com.shubham.storiesofcommonman;
 
+import android.app.ActionBar;
 import android.app.Notification;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -28,6 +30,7 @@ import com.shubham.storiesofcommonman.MainActivity;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -45,7 +48,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,11 +61,8 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.UUID;
-
 public class Navigate extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener ,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,View.OnClickListener
+        implements NavigationView.OnNavigationItemSelectedListener ,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
 
 
@@ -78,6 +77,8 @@ public class Navigate extends AppCompatActivity
     private String name;
     private String email;
     private  DatabaseReference mDatabaseLike;
+    private int mCurrentNightMode;
+
 
     private  boolean mProcessLike = false;
 
@@ -93,6 +94,23 @@ public class Navigate extends AppCompatActivity
         setContentView(R.layout.activity_navigate);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setIcon(R.drawable.icon);
+
+
+       /* actionBar.setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+*/
+       /* View mActionBarView = getLayoutInflater().inflate(R.layout.my_action_bar, null);
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+*/
+
+
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
@@ -115,6 +133,11 @@ public class Navigate extends AppCompatActivity
         Bundle extras = intent.getExtras();
 
         String jsonString = intent.getStringExtra("jsonObject");
+
+/*
+        mCurrentNightMode = getCurrentNightMode();
+*/
+
 
         if(jsonString != null)
         {
@@ -164,7 +187,7 @@ public class Navigate extends AppCompatActivity
 
             user_picture = (ImageView) hView.findViewById(R.id.imageView);
             Picasso.with(this).load(pic).transform(new RoundedTransformation(50, 4)).resize(120,120).into(user_picture);
-
+          //  .error()
         }
 
       /*  UiModeManager uiManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
@@ -190,7 +213,9 @@ public class Navigate extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+/*
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+*/
 
     }
     public class RoundedTransformation implements com.squareup.picasso.Transformation
@@ -230,19 +255,6 @@ public class Navigate extends AppCompatActivity
     }
 
 
-   /* public Bitmap getUserPic(String userID) {
-        String imageURL;
-        Bitmap bitmap = null;
-        imageURL = "http://graph.facebook.com/"+userID+"/picture?type=small";
-        try {
-            bitmap = BitmapFactory.decodeStream((InputStream)new URL(imageURL).getContent());
-        } catch (Exception e) {
-            Log.d("TAG", "Loading Picture FAILED");
-            e.printStackTrace();
-        }
-        return bitmap;
-    }*/
-
     private void googlePlusLogout() {
         if (mGoogleApiClient.isConnected())
         {
@@ -262,6 +274,29 @@ public class Navigate extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+  /*  protected void onPostResume() {
+        super.onPostResume();
+
+        if (hasNightModeChanged()) {
+            delayedRecreate();
+        }
+
+    }
+
+    private void delayedRecreate() {
+       *//* Handler handler = new Handler();
+        handler.postDelayed(this::recreate, 1);*//*
+    }
+
+    private boolean hasNightModeChanged() {
+        getDelegate().applyDayNight();
+        return mCurrentNightMode != getCurrentNightMode();
+    }
+
+    private int getCurrentNightMode() {
+        return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -293,84 +328,39 @@ public class Navigate extends AppCompatActivity
         }
 
         int id = item.getItemId();
-
+        Toast.makeText(this, id+"", Toast.LENGTH_LONG).show();
+        Log.i("id",id+"");
         switch (item.getItemId())
         {
-            case R.id.Auto:
+                case R.id.Auto:
                 //change theme to auto mode
+                Toast.makeText(this, id+"Auto", Toast.LENGTH_LONG).show();
+
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
                 getDelegate().applyDayNight();
-
+                recreate();
                 break;
-            case R.id.day:
+                case R.id.day:
+
+
+                Toast.makeText(this, id+"Day", Toast.LENGTH_LONG).show();
+
                 //Change theme to day mode
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 getDelegate().applyDayNight();
+                recreate();
+
                 break;
-            case R.id.night:
+                case R.id.night:
                 //change theme to night mode
+                Toast.makeText(this, id+"Night", Toast.LENGTH_LONG).show();
+
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 getDelegate().applyDayNight();
+                recreate();
                 break;
         }
-
-        Intent intent = new Intent(Navigate.this, DayNightActivity.class);
-        startActivity(intent);
-
-        //noinspection SimplifiableIfStatement
-    /*    if (id == R.id.night)
-        {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            getDelegate().applyDayNight();
-            Intent intent = new Intent(Navigate.this, DayNightActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        else if(id ==R.id.day)
-        {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            getDelegate().applyDayNight();
-            Intent intent = new Intent(Navigate.this, DayNightActivity.class);
-            startActivity(intent);
-            return true;
-
-        }
-        else if(id == R.id.Auto)
-        {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-            getDelegate().applyDayNight();
-            Intent intent = new Intent(Navigate.this, DayNightActivity.class);
-            startActivity(intent);
-            return true;
-        }
-*/
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onClick(View view)
-    {
-        switch (view.getId())
-        {
-            case R.id.Auto:
-                //change theme to auto mode
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-                getDelegate().applyDayNight();
-
-                break;
-            case R.id.day:
-                //Change theme to day mode
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                getDelegate().applyDayNight();
-                break;
-            case R.id.night:
-                //change theme to night mode
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                getDelegate().applyDayNight();
-                break;
-        }
-
-        Intent intent = new Intent(Navigate.this, DayNightActivity.class);
-        startActivity(intent);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -407,7 +397,18 @@ public class Navigate extends AppCompatActivity
             Intent i = new Intent(Navigate.this,Notifications.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_share)
+        }else if(id == R.id.about)
+        {
+            Intent i = new Intent(Navigate.this,About.class);
+            startActivity(i);
+        }
+        else if (id== R.id.Team)
+        {
+            Intent i = new Intent(Navigate.this,Team.class);
+            startActivity(i);
+        }
+
+        else if (id == R.id.nav_share)
         {
 
         } else if (id == R.id.nav_send)

@@ -8,5 +8,10 @@
         app:showAsAction="always"
         />
 
+    <item android:id="@+id/icon"
+        android:title="Icon"
+        android:icon="@drawable/icon"
+        app:showAsAction="always"
+        />
 
 </menu>

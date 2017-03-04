@@ -16,7 +16,8 @@
         android:layout_marginTop="23dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_margin="25dp" />
 
     <TextView
         android:text="Title goes here.."
@@ -24,11 +25,12 @@
         android:layout_height="40dp"
         android:id="@+id/title"
         android:padding="10dp"
-        android:paddingStart="25dp"
+        android:background="@drawable/input_outline"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:layout_margin="25dp" />
 
     <TextView
         android:text="Desc goes here.."
@@ -36,18 +38,11 @@
         android:layout_height="40dp"
         android:id="@+id/desc"
         android:padding="10dp"
-        android:paddingStart="25dp"
         android:layout_marginTop="28dp"
+        android:background="@drawable/input_outline"
         android:layout_below="@+id/title"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_margin="25dp" />
 
-    <Button
-        android:text="Remove Post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/remove"
-        android:visibility="invisible" />
 </RelativeLayout>

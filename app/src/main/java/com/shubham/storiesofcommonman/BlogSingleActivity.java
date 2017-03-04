@@ -1,5 +1,6 @@
 package com.shubham.storiesofcommonman;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,11 @@ public class BlogSingleActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_single);
+
+        getActionBar();
+        ActionBar actionBar = getActionBar();
+        actionBar.setIcon(R.drawable.icon);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference id = mDatabase.child("Blog");
         mBlogdesc = (TextView) findViewById(R.id.desc);

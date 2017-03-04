@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/day"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/day"
         app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/night"
+        android:orderInCategory="100"
+        android:title="@string/night"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/Auto"
+        android:orderInCategory="100"
+        android:title="@string/Auto"
+        app:showAsAction="never" />
+
 </menu>

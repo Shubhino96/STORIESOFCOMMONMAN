@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.shubham.storiesofcommonman.About">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:text="“Common Man ” a collective noun that is often used for in fact a huge group of people , who are diversified very much in many ways . Each one thinks different , acts different  and each one has a unique passion . Grouping all of them under one word is so unfair . Isn’t it?"
+        style="@android:style/Widget.TextView"
+        tools:textStyle="bold|italic"
+        android:textSize="16sp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/input_outline"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_outline"
+        android:id="@+id/textView2"
+        android:text="So we decided we bring to you at least some of the people into focus through this blog . We live in a society that is so much partitioned that we do not know or care to know about each other’s world . It’s often surprising that the faces we see every day have so much to tell us about ,their struggles, happiness and stories of triumph , all that could be an inspiration to some of us . And we have so much to offer each other.Let’s take a sneak peek into our neighbor’s world.  "
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        app:srcCompat="@drawable/socm"
+        android:id="@+id/imageView3"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

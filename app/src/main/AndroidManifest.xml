@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -20,7 +20,8 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
+            android:label=" "
+            android:icon="@drawable/icon"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
@@ -29,7 +30,8 @@
 
         <activity
             android:name=".Navigate"
-            android:label="@string/title_activity_navigate"
+            android:label=" "
+            android:icon="@drawable/icon"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Splash">
             <intent-filter>
@@ -38,7 +40,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PostActivity"></activity>
+
+        <service android:name=".MyFirebaseInstanceIdServices">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".PostActivity" />
+        <activity android:name=".BlogSingleActivity" />
+        <activity android:name=".BuyOurBook" />
+        <activity android:name=".Notifications" />
+        <activity android:name=".About" />
+        <activity android:name=".Team"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.shubham.storiesofcommonman;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,11 +14,15 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.UUID;
 
 public class PostActivity extends AppCompatActivity
 {
@@ -33,13 +38,16 @@ public class PostActivity extends AppCompatActivity
     private ProgressDialog mProgress;
     private DatabaseReference mDatabase;
     private  String name;
-
+    private  String email;
+    private  String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+
 
         mSelectImage = (ImageButton) findViewById(R.id.imageSelect);
         mPostTitle = (EditText) findViewById(R.id.titleField);
@@ -50,6 +58,7 @@ public class PostActivity extends AppCompatActivity
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         name = extras.getString("name");
+        email = extras.getString("email");
         mProgress = new ProgressDialog(this);
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +89,8 @@ public class PostActivity extends AppCompatActivity
            final String title_val = mPostTitle.getText().toString().trim();
            final String desc_val  = mPostDesc.getText().toString().trim();
 
+
+
            if (!TextUtils.isEmpty(title_val) && !TextUtils.isEmpty(desc_val)&& imageUri!=null)
            {
                mProgress.show();
@@ -95,7 +106,9 @@ public class PostActivity extends AppCompatActivity
                        newPost.child("title").setValue(title_val);
                        newPost.child("desc").setValue(desc_val);
                        newPost.child("image").setValue(downloadUrl.toString());
-                       newPost.child("uid").setValue(name);
+                       newPost.child("username").setValue(name);
+                       id=  UUID.randomUUID().toString();
+                       newPost.child("uid").setValue(id);
                        mProgress.dismiss();
                        finish();
 

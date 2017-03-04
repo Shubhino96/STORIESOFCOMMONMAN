@@ -5,9 +5,10 @@
     <string name="name">Facebook Name</string>
     <string name="gender">Gender</string>
     <string name="title_activity_navigate">Navigate</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="night">Night Mode</string>
+    <string name="day">Day Mode</string>
+    <string name="Auto">Auto Mode</string>
 
-    <string name="action_settings">Settings</string>
 </resources>
