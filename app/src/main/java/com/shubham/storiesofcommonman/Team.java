@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 public class Team extends AppCompatActivity
 {
@@ -18,6 +19,9 @@ public class Team extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
+
+        Toolbar tb = (Toolbar) findViewById(R.id.tb);
+        setSupportActionBar(tb);
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);

@@ -3,6 +3,7 @@ package com.shubham.storiesofcommonman;
 import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 public class About extends AppCompatActivity
 {
@@ -12,8 +13,8 @@ public class About extends AppCompatActivity
     {  super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        getActionBar();
-        ActionBar actionBar = getActionBar();
-        actionBar.setIcon(R.drawable.icon);
+        Toolbar tb = (Toolbar) findViewById(R.id.tb);
+        setSupportActionBar(tb);
+
     }
 }
